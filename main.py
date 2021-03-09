@@ -2,12 +2,15 @@
 Main module
 '''
 import time
-import game
 import blessed
+import game
 
 term = blessed.Terminal()
 
 def read_conversation(filename, hero_first):
+    '''
+    This function reads conversations from files and returns the list of formated thesis
+    '''
     conversation_list, counter = [], 0
     with open('./conversations/'+filename, 'r') as conv_file:
         for line in conv_file:
@@ -17,16 +20,21 @@ def read_conversation(filename, hero_first):
             counter += 1
 
     return conversation_list
-    
+
 
 def main_game():
+    '''
+    Main function that organises the flow of the game
+    '''
     print_intro_screen()
 
     reception = game.Location('Reception')
-    reception.set_description('Sheptytsky Center reception on the first floor next to entrance. With monitors, termometer and guards')
+    reception.set_description('Sheptytsky Center reception on the first floor next to entrance.\
+With monitors, termometer and guards')
 
     basement = game.Location('Basement')
-    basement.set_description('Sheptytsky Center Underground Basement with lots of tables, chairs, desks and sofas to study')
+    basement.set_description('Sheptytsky Center Underground Basement with lots of tables,\
+chairs, desks and sofas to study')
 
     it_space = game.Location('IT Space')
     it_space.set_description('Basement in Academic Corps with tables and comfortable chairs')
@@ -35,13 +43,16 @@ def main_game():
     trapezna.set_description('Place to eat. Large room with tables')
 
     striysky_park_south = game.Location('Stryiskyi Park South Side Entrance')
-    striysky_park_south.set_description('Dark park. Nobody knows what a mistery and dangerous creatures hides inside')
+    striysky_park_south.set_description('Dark park. Nobody knows what a mistery and dangerous\
+creatures hides inside')
 
     railway_station = game.Location('Children Railway Station')
-    railway_station.set_description('Forgoten and abandoned childrens railway station. Old building and trains')
+    railway_station.set_description('Forgoten and abandoned childrens railway station.\
+Old building and trains')
 
     striysky_park_fountain = game.Location('Stryiskyi Park Fountain')
-    striysky_park_fountain .set_description('Fountain in Stryiskyi Park, with some infrastructure around')
+    striysky_park_fountain.set_description('Fountain in Stryiskyi Park, with some\
+infrastructure around')
 
 
     luno = game.Item('LUNO')
@@ -121,30 +132,12 @@ def main_game():
     pencil.set_damage(20)
     basement.set_item(pencil)
 
-    # dave = game.Enemy("Dave", "A smelly zombie")
-    # dave.set_conversation("What's up, dude! I'm hungry.")
-    # dave.set_weakness("cheese")
-    # dining_hall.set_character(dave)
-
-    # tabitha = game.Enemy("Tabitha", "An enormous spider with countless eyes and furry legs.")
-    # tabitha.set_conversation("Sssss....I'm so bored...")
-    # tabitha.set_weakness("book")
-    # ballroom.set_character(tabitha)
-
-    # cheese = game.Item("cheese")
-    # cheese.set_description("A large and smelly block of cheese")
-    # ballroom.set_item(cheese)
-
-    # book = game.Item("book")
-    # book.set_description("A really good book entitled 'Knitting for dummies'")
-    # dining_hall.set_item(book)
-
     current_location = basement
     previous_location = None
     backpack = {}
 
 
-    while hero.alive():
+    while True:
         time.sleep(0.9)
         print('\n')
         print(term.bold(f'HP: {hero.hp}'))
@@ -292,7 +285,15 @@ def main_game():
 
 
 def print_intro_screen():
-    print('It\'s Friday, 22:17 PM. Outside is dark. You are sitting in Sheptytsky Center Basement for 5th our now in attempt to finish your project. You can\'t go home, deadline ends in 13 minutes. You wasn\'t watching at clock for a couple of hour so eventually you don\'t know time. Finally, you did it, you finished you work and glanced at clock terrified. Time to go home. In order to win you should survive and manage to go to fountain')
+    '''
+    This function print main screen infomation and legend
+    '''
+    print('It\'s Friday.', 'You are sitting in Sheptytsky Center Basement for 5 hour now\
+in attempt to finish your project.', 'You can\'t go home, deadline ends in 13 minutes but you still\
+have some work to do.', 'You wasn\'t watching at clock for a couple of hour so you don\'t\
+know time.', 'Finally, you did it, you finished you work and glanced at clock terrified:\
+it\'s 22:17 PM.', 'Outside darkness covered the streets. Time to go home.\n',
+'In order to win you should survive and arrive to Sheptytsky Park Fountain', sep='\n')
 
 
 if __name__ == '__main__':

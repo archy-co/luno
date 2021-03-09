@@ -6,9 +6,6 @@ import blessed
 
 term = blessed.Terminal()
 
-global defeated_num
-defeated_num = 0
-
 
 class Hero:
     '''
@@ -25,15 +22,13 @@ class Hero:
             self.hp = 0
 
     def recover(self, points):
+        '''
+        This method is not used yet, but potentially could be realized to recover health with
+        consumables
+        '''
         self.hp += points
         if self.hp > 100:
             self.hp = 100
-
-    def alive(self):
-        '''
-        Checks if hero is alive. Returns bool value True if yes (hp > 0), False otherwise
-        '''
-        return bool(self.hp)
 
 
 class Location:
@@ -47,6 +42,9 @@ class Location:
         self.description = description
 
     def link_loc(self, loc):
+        '''
+        Links another location to current location. It is ignorant to direction
+        '''
         self.linked_locs.append(loc)
 
     def set_character(self, character):
@@ -62,6 +60,9 @@ class Location:
         print(self.name, '-', self.description)
 
     def move(self, goto_loc):
+        '''
+        Moves location to new
+        '''
         for linked_loc in self.linked_locs:
             if linked_loc.name == goto_loc:
                 return linked_loc
@@ -101,9 +102,10 @@ class Character:
         self.conversation = conversation
 
     def talk(self):
+        'This method prints thesis of speacers in conversation'
         for thesis in self.conversation:
             print(thesis)
-            time.sleep(0.075)
+            time.sleep(0.15)
 
 
 
@@ -113,17 +115,24 @@ class Enemy(Character):
         self.passable = True
 
     def set_properties(self, hp, damage):
+        '''
+        This method sets enemies properties: health points and damage
+        '''
         self.hp = hp
         self.damage = damage
 
     def fight(self, fight_with):
+        '''
+        This method returns damage, taken during the fight
+        '''
         fight_damage = max(self.hp//fight_with, 1) * self.damage
         return fight_damage
 
-    def get_defeated(self):
-        return defeated_num
-
     def not_passable(self):
+        '''
+        This method sets passable value of enemy. If enemy is not passable, hero can\'t go
+        further without defeating him
+        '''
         self.passable = False
 
     def describe(self):
@@ -134,7 +143,3 @@ class Enemy(Character):
 
     def get_drop_item(self):
         return self.drop_item
-
-class Friend(Character):
-    pass
-
