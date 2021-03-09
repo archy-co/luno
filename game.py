@@ -24,7 +24,11 @@ class Room:
         return self.item
 
     def get_details(self):
-        print(self.name, '-', self.description)
+        print(self.name)
+        print('--------------------')
+        print(self.description)
+        for room in self.linked_rooms:
+            print(f'{room[0].name} is {room[1]}')
 
     def move(self, command):
         for linked_room, side in self.linked_rooms:
@@ -44,7 +48,7 @@ class Item:
         self.description = description
 
     def describe(self):
-        print(self.name, '-', self.description)
+        print(f'The [{self.name}] is here - {self.description}')
 
     def get_name(self):
         return self.name
@@ -56,7 +60,8 @@ class Character:
         self.description = description
 
     def describe(self):
-        print(self.name, '-', self.description)
+        print(f'{self.name} is here!')
+        print(self.description)
 
     def talk(self):
         print(self.conversation)
